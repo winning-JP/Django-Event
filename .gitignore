@@ -1,3 +1,2 @@
 .DS_Store
-myproject/event/__pycache__/
-myproject/myproject/__pycache__/
+__pycache__/
