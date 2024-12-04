@@ -8,5 +8,11 @@
 <body>
     <h1>{{ message }}</h1>
     <p>This is the event index page.</p>
+    <a href="{% url 'create_event' %}">Create New Event</a>
+    <ul>
+        {% for event in events %}
+            <li>{{ event.name }} - {{ event.date }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
