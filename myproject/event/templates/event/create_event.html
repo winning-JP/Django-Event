@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>イベント作成</title>
+</head>
+<body>
+    <h1>カンタン出欠表 - イベント作成</h1>
+    
+    <!-- STEP1: イベント情報入力 -->
+    <h2>STEP1 イベント名</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ event_form.as_p }}
+        
+        <!-- STEP2: 日程候補入力 -->
+        <h2>STEP2 日程候補</h2>
+        {{ date_form.as_p }}
+        
+        <button type="submit">作成</button>
+    </form>
+</body>
+</html>
