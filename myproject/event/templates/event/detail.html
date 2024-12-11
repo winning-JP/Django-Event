@@ -1,20 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Event</title>
+    <title>{{ event.name }}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'event/styles.css' %}">
 </head>
 <body>
     <div class="container">
-        <h1>Create a New Event</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="button">Save</button>
-        </form>
+        <h1>{{ event.name }}</h1>
+        <p>{{ event.description }}</p>
+        <p>Date: {{ event.date }}</p>
+        <a href="{% url 'edit_event' event.id %}">Edit Event</a>
     </div>
 </body>
 </html>
