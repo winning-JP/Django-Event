@@ -11,22 +11,38 @@
     <div class="container">
         <h1>{{ message }}</h1>
         <p>This is the event index page.</p>
+        
+        <!-- 新規イベント作成ページへのリンク -->
         <a href="{% url 'create_event' %}" class="button">Create New Event</a>
-        <ul>
-            {% for event in events %}
-                <li>
-                    {{ event.name }} - {{ event.date }}
-                    <div class="actions">
-                        <a href="{% url 'event_detail' event.id %}" class="button">View</a>
-                        <a href="{% url 'edit_event' event.id %}" class="button">Edit</a>
-                        <form method="post" action="{% url 'delete_event' event.id %}" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="button delete" onclick="return confirm('Are you sure you want to delete this event?');">Delete</button>
-                        </form>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
+        
+        <!-- 公開イベント一覧ページへのリンク -->
+        <a href="{% url 'public_events' %}" class="button">View Public Events</a>
+        
+        <hr>
+
+        <h2>All Events</h2>
+        {% if events %}
+            <ul>
+                {% for event in events %}
+                    <li>
+                        <strong>{{ event.name }}</strong> - {{ event.date }} ({{ event.get_status_display }})
+                        <div class="actions">
+                            <!-- イベント詳細ページへのリンク -->
+                            <a href="{% url 'event_detail' event.id %}" class="button">View</a>
+                            <!-- イベント編集ページへのリンク -->
+                            <a href="{% url 'edit_event' event.id %}" class="button">Edit</a>
+                            <!-- イベント削除フォーム -->
+                            <form method="post" action="{% url 'delete_event' event.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="button delete" onclick="return confirm('Are you sure you want to delete this event?');">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No events available.</p>
+        {% endif %}
     </div>
 </body>
 </html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.name }} - 参加登録</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'event/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ event.name }} に参加可否を登録</h1>
+        <p>イベントが公開されているため、あなたの名前と参加可否を登録できます。</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button">登録</button>
+        </form>
+        <a href="{% url 'event_detail' event.id %}">戻る</a>
+    </div>
+</body>
+</html>

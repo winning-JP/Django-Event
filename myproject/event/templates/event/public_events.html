@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公開中のイベント一覧</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'event/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>公開中のイベント一覧</h1>
+        <ul>
+            {% for event in events %}
+                <li>
+                    <strong>{{ event.name }}</strong> ({{ event.date }})
+                    <a href="{% url 'event_detail' event.id %}">詳細を見る</a>
+                </li>
+            {% empty %}
+                <li>現在、公開中のイベントはありません。</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'event_index' %}">トップページへ戻る</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.name }} - イベント締め切り</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'event/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ event.name }} を締め切りますか？</h1>
+        <p>イベントを締め切ると、これ以上候補日の追加や参加可否の登録・変更はできなくなります。</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="button">締め切る</button>
+            <a href="{% url 'event_detail' event.id %}" class="button">キャンセル</a>
+        </form>
+    </div>
+</body>
+</html>

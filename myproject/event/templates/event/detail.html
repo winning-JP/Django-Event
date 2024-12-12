@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +11,46 @@
     <div class="container">
         <h1>{{ event.name }}</h1>
         <p>{{ event.description }}</p>
+        <p>Status: {{ event.get_status_display }}</p>
         <p>Date: {{ event.date }}</p>
+
+        <h2>候補日一覧</h2>
+        <ul>
+            {% for opt in date_options %}
+                <li>{{ opt.candidate_date }}
+                    <ul>
+                        {% with summary=opt.get_participation_summary %}
+                            <li>◯: {{ summary.o }}</li>
+                            <li>✕: {{ summary.x }}</li>
+                            <li>△: {{ summary.d }}</li>
+                        {% endwith %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if not event.is_closed %}
+            <a href="{% url 'add_date_option' event.id %}">候補日を追加</a>
+        {% endif %}
+
+        {% if event.is_public and not event.is_closed %}
+            <a href="{% url 'add_participant' event.id %}">参加可否を登録</a>
+        {% endif %}
+
+        <h2>参加者一覧</h2>
+        <ul>
+            {% for participant in participants %}
+                <li>{{ participant.name }} : {{ participant.get_availability_display }} ({{ participant.date_option.candidate_date }})</li>
+            {% endfor %}
+        </ul>
+
         <a href="{% url 'edit_event' event.id %}">Edit Event</a>
+        {% if event.is_public and not event.is_closed %}
+            <form method="post" action="{% url 'close_event' event.id %}">
+                {% csrf_token %}
+                <button type="submit">イベントを締め切る</button>
+            </form>
+        {% endif %}
     </div>
 </body>
 </html>
