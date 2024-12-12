@@ -9,12 +9,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Create a New Event</h1>
+        <h1>新規イベントの作成</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="button">Save</button>
+            <button type="submit" class="button">保存</button>
         </form>
+        <a href="{% url 'event_index' %}">トップページへ戻る</a>
     </div>
 </body>
 </html>
